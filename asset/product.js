@@ -3,19 +3,19 @@ let jewelery = document.querySelector('.jewelery');
 let men = document.querySelector('.men');
 let women = document.querySelector('.women');
 let electronics = document.querySelector('.electronic');
-let section = document.querySelector('section');
 const singleItem = document.querySelector('template');
 const input = document.querySelector('input');
 const searchBtn = document.querySelector('.btn');
-let uppercase;
 
-const fetchProducts = () => {
-  fetch('https://fakestoreapi.com/products')
-    .then((response) => response.json())
-    .then((data) => fetchedProducts(data));
+const clearState = () => {
+  electronics.innerHTML = '';
+  women.innerHTML = '';
+  lists.innerHTML = '';
+  men.innerHTML = '';
+  jewelery.innerHTML = '';
 };
 
-const fetchedProducts = (data) => {
+const createProducts = (data, lists) => {
   if (data) {
     for (const post of data) {
       const itemElement = document.importNode(singleItem.content, true);
@@ -34,158 +34,59 @@ const fetchedProducts = (data) => {
   }
 };
 
+const fetchProducts = () => {
+  clearState();
+  fetch('https://fakestoreapi.com/products')
+    .then((response) => response.json())
+    .then((data) => createProducts(data, lists));
+};
+
 fetchProducts();
 
 searchBtn.addEventListener('click', () => {
+  const value = input.value.toUpperCase().trim();
   const fetchJewelery = () => {
-    uppercase = input.value.toUpperCase().trim();
     if (
-      uppercase.includes('JEWEL') ||
-      uppercase.includes('JEWEL') ||
-      uppercase.includes('GOLD')
+      value.includes('JEWEL') ||
+      value.includes('JEWEL') ||
+      value.includes('GOLD')
     ) {
       fetch(`https://fakestoreapi.com/products/category/jewelery`)
         .then((res) => res.json())
-        .then((data) => fetchedJewelery(data));
-      
+        .then((data) => createProducts(data, jewelery));
     }
   };
-  const fetchedJewelery = (data) => {
-    electronics.innerHTML = '';
-    women.innerHTML = '';
-    lists.innerHTML = '';
-    men.innerHTML = '';
 
-    if (data) {
-      for (const post of data) {
-        const itemElement = document.importNode(singleItem.content, true);
-        itemElement.querySelector('h3').textContent = `${post.title}.`;
-        itemElement.querySelector('img').src = post.image;
-        itemElement.querySelector(
-          '.price'
-        ).textContent = `Price: $${post.price}`;
-        itemElement.querySelector(
-          '.rating'
-        ).textContent = `Rating: ${post.rating.rate}`;
-        itemElement.querySelector(
-          '.count'
-        ).textContent = `Available Count: ${post.rating.count}`;
-
-        jewelery.append(itemElement);
-      }
-    }
-  };
   fetchJewelery();
 
   const fetchMen = () => {
-    uppercase = input.value.toUpperCase().trim();
-
-    if (uppercase.includes('MEN')) {
+    if (value.includes('MEN')) {
       fetch(`https://fakestoreapi.com/products/category/men's%20clothing/`)
         .then((res) => res.json())
-        .then((data) => fetchedMen(data));
-    }
-  };
-  const fetchedMen = (data) => {
-    electronics.innerHTML = '';
-    women.innerHTML = '';
-    jewelery.innerHTML = '';
-    lists.innerHTML = '';
-
-    if (data) {
-      for (const post of data) {
-        const itemElement = document.importNode(singleItem.content, true);
-        itemElement.querySelector('h3').textContent = `${post.title}.`;
-        itemElement.querySelector('img').src = post.image;
-        itemElement.querySelector(
-          '.price'
-        ).textContent = `Price: $${post.price}`;
-        itemElement.querySelector(
-          '.rating'
-        ).textContent = `Rating: ${post.rating.rate}`;
-        itemElement.querySelector(
-          '.count'
-        ).textContent = `Available Count: ${post.rating.count}`;
-
-        men.append(itemElement);
-      }
+        .then((data) => createProducts(data, men));
     }
   };
 
   fetchMen();
 
   const fetchElectronics = () => {
-    uppercase = input.value.toUpperCase().trim();
-
-    if (uppercase.includes('ELE')) {
+    if (value.includes('ELE')) {
       fetch(`https://fakestoreapi.com/products/category/electronics/`)
         .then((res) => res.json())
-        .then((data) => fetchedElectronics(data));
-    }
-  };
-  const fetchedElectronics = (data) => {
-    men.innerHTML = '';
-    women.innerHTML = '';
-    jewelery.innerHTML = '';
-    lists.innerHTML = '';
-
-    if (data) {
-      for (const post of data) {
-        const itemElement = document.importNode(singleItem.content, true);
-        itemElement.querySelector('h3').textContent = `${post.title}.`;
-        itemElement.querySelector('img').src = post.image;
-        itemElement.querySelector(
-          '.price'
-        ).textContent = `Price: $${post.price}`;
-        itemElement.querySelector(
-          '.rating'
-        ).textContent = `Rating: ${post.rating.rate}`;
-        itemElement.querySelector(
-          '.count'
-        ).textContent = `Available Count: ${post.rating.count}`;
-
-        electronics.append(itemElement);
-      }
+        .then((data) => createProducts(data, electronics));
     }
   };
 
+  clearState();
   fetchElectronics();
 
   const fetchWomen = () => {
-    uppercase = input.value.toUpperCase().trim();
-
-    if (uppercase.includes('FE') || uppercase.includes('WO')) {
+    if (value.includes('FEM') || value.includes('WO')) {
       fetch(`https://fakestoreapi.com/products/category/women's%20clothing/`)
         .then((res) => res.json())
-        .then((data) => fetchedWomen(data));
-      console.log(uppercase);
+        .then((data) => createProducts(data, women));
     }
   };
-  const fetchedWomen = (data) => {
-    men.innerHTML = '';
-    electronics.innerHTML = '';
-    jewelery.innerHTML = '';
-    lists.innerHTML = '';
-
-    if (data) {
-      for (const post of data) {
-        const itemElement = document.importNode(singleItem.content, true);
-        itemElement.querySelector('h3').textContent = `${post.title}.`;
-        itemElement.querySelector('img').src = post.image;
-        itemElement.querySelector(
-          '.price'
-        ).textContent = `Price: $${post.price}`;
-        itemElement.querySelector(
-          '.rating'
-        ).textContent = `Rating: ${post.rating.rate}`;
-        itemElement.querySelector(
-          '.count'
-        ).textContent = `Available Count: ${post.rating.count}`;
-
-        women.append(itemElement);
-      }
-    }
-  };
-
+  clearState();
   fetchWomen();
 });
