@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>| Ejor-Home Page |</title>
+    <link rel="stylesheet" href="./dist/output.css" />
+    <link rel="stylesheet" href="./asset/style/app.css" />
+    <link
+      rel="shortcut icon"
+      href="./asset/image/favico.svg"
+      type="image/x-icon" />
+    <script src="./asset/app.js" defer></script>
+  </head>
+  <body>
+    <div class="container flex flex-col justify-center w-screen h-screen">
+      <div class="slideshow-container slideshow">
+        <div class="mySlides fade">
+          <img src="./asset/image/discover.svg" class="w-full" />
+          <div class="text">
+            <h3 class="text-2xl mb-2 font-bold">Shop</h3>
+            <p class="text-lg">
+              Shopping items has been been from a very wide varieties of
+              products like electronics, clothing and jewelry.
+            </p>
+          </div>
+        </div>
+
+        <div class="mySlides fade">
+          <img src="./asset/image/shop.svg" class="w-full" />
+          <div class="text">
+            <h3 class="text-2xl mb-2 font-bold">Discover</h3>
+            <p class="text-lg">
+              With our storing, the art of shopping has come to be seen as a
+              past-time or entertainment.
+            </p>
+          </div>
+        </div>
+
+        <div class="mySlides fade">
+          <img src="./asset/image/new trend.svg" class="w-full" />
+          <div class="text">
+            <h3 class="text-2xl mb-2 font-bold">New Trends</h3>
+            <p class="text-lg">
+              Different stores have created various new trends... we are the
+              pioneer!
+            </p>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="text-center mb-6 dots">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+      </div>
+      <div class="flex flex-col items-center btn-div">
+        <button
+          class="bg-black text-white w-1/3 mb-36 flex justify-center py-2 px-4 rounded-md skip">
+          <a href="./product.html"> Skip to Store </a>
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
